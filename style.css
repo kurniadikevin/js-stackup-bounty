@@ -7,17 +7,24 @@ body{
    display: flex;
    justify-content: center;
    align-items: center;
+   padding-bottom: 10px;
 }
 
 .task-body{
     border: 1px solid white;
+    border-radius: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 10px;
-}
+    grid-template-columns: 3fr 2fr;
+    padding: 10px 15px;
 
+}
     .task-display{
 
+    }
+    .task-list{
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 600px;
     }
 
     .task-input{
@@ -31,4 +38,14 @@ body{
         }
         #description{
             height: 100px;
+            width: 300px;
+            resize: none;
         }
+
+.single-task{
+    border: 1px solid white;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

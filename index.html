@@ -12,7 +12,11 @@
     </div>
     <div class="task-body">
         <div class="task-display">
-            <button id="refresh">refresh</button>
+            <div>
+            <button id="refresh">All</button>
+            <button id="incompleted">Incompleted</button>
+            <button id="completed">Completed</button>
+            </div>
             <div class="task-list"></div>
         </div>
         <div class="task-input">
@@ -31,8 +35,8 @@
                 </select>
                 <div >Completion</div>
                 <select name="completion" id="completion-select">
-                    <option value=true>Done</option>
-                    <option value=false>Undone</option>
+                    <option value='true'>Done</option>
+                    <option value='false'>Undone</option>
                 </select>
                 <div>Desc:</div>
                 <textarea type="text" id="description" name="description"></textarea>

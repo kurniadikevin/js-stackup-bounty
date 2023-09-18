@@ -1,8 +1,8 @@
 const ticketInput= document.querySelector('#ticket-id');
-
+const localData= localStorage.getItem('local-data');
 
 class Task {
-    constructor(id, title, description, dueDate, priority, isCompleted = false) {
+    constructor(id, title, description, dueDate, priority, isCompleted ) {
       this.id = id;                 // Unique identifier for the task
       this.title = title;           // Title of the task
       this.description = description; // Description of the task
@@ -21,23 +21,35 @@ class Task {
   }
   
   class ToDoList {
+    
     constructor() {
-      this.tasks = []; // An array to store the list of tasks
+        const local= JSON.parse(localStorage.getItem('local-data'))
+        if(local){
+            this.tasks =local
+        } else{
+            this.tasks =[]
+        }
     }
 
     autogenerateTicketId(){
         ticketInput.value= '#' + Math.floor(Math.random() * 100000);
-    }
-  
-    addTask(task) {
-      this.tasks.push(task);
     }
 
     clearTicketForm(){
         [ticketInput.value, title.value, description.value,
         priority.value, completion.value]=''
         this.autogenerateTicketId();
+    }
 
+    storeToLocal(task){
+        const local= myToDoList.getAllTasks()
+        console.log(local)
+        if(local!== null){
+            local.push(task)
+            localStorage.setItem('local-data',JSON.stringify(local))
+        } else{
+        localStorage.setItem('local-data',JSON.stringify([task]))
+        }
     }
   
     removeTask(id) {
@@ -49,32 +61,20 @@ class Task {
     }
   
     getAllTasks() {
-      return this.tasks;
+      return JSON.parse(localStorage.getItem('local-data'))
     }
   
     getCompletedTasks() {
-      return this.tasks.filter(task => task.isCompleted);
+        return JSON.parse(localStorage.getItem('local-data')).filter(task => task.isCompleted === 'true');
     }
   
     getIncompleteTasks() {
-      return this.tasks.filter(task => !task.isCompleted);
+      return JSON.parse(localStorage.getItem('local-data')).filter(task => task.isCompleted === 'false');
     }
   }
   
-  // Example usage:
-  
    const myToDoList = new ToDoList();
-  
-//   const task1 = new Task(1, "Finish coding project", "Complete the coding project and submit it on time.", "2023-09-30", "high");
-//   const task2 = new Task(2, "Buy groceries", "Purchase essential groceries for the week.", "2023-09-20", "medium");
-  
-//   myToDoList.addTask(task1);
-//   myToDoList.addTask(task2);
-  
- // console.log(myToDoList.getAllTasks()); // Returns an array with both tasks
- // console.log(myToDoList.getIncompleteTasks()); // Returns an array with incomplete tasks
-  //console.log(myToDoList.getCompletedTasks()); // Returns an empty array because none are completed yet
-  
+
   //form dom
   const title= document.querySelector('#title');
   const description= document.querySelector('#description');
@@ -85,47 +85,80 @@ class Task {
   const submitBtn= document.querySelector('#submit-btn');
 
   submitBtn.addEventListener('click',()=>{
+
     const newTask= new Task(ticketInput.value, title.value, description.value,
                              dueDate.value, priority.value, completion.value)
     try {
         // Code that may throw an exception
-        myToDoList.addTask(newTask)
+        myToDoList.storeToLocal(newTask)
         alert('Ticket sucessfully added')
+        myToDoList.clearTicketForm()
        } catch (error) {
         // Code to handle the exception
         alert(error)
        } finally {
         // Code that is always executed
         alert('Ticket form is cleared')
-        myToDoList.clearTicketForm()
+      //  myToDoList.clearTicketForm()
+        showTask()
        } 
 })
 
+//refresh display task
 const refreshBtn= document.querySelector('#refresh');
-refreshBtn.addEventListener('click',()=>{
-    
-    const taskList=document.querySelector('.task-list');
-    const contentArr =myToDoList.getAllTasks()
-    console.log(contentArr)
+refreshBtn.addEventListener('click',()=>showTask())
 
-        // Remove all child elements
+//incompleted display task
+const incompletedBtn= document.querySelector('#incompleted');
+incompletedBtn.addEventListener('click',()=>showTask('incompleted'))
+
+//completed display task
+const completedBtn= document.querySelector('#completed');
+completedBtn.addEventListener('click',()=>showTask('completed'))
+
+
+// show task based on completion status or show all
+// USING SWITCH CASE STATEMENT
+const showTask=(status)=>{
+    const taskList=document.querySelector('.task-list');
+    let contentArr;
+    switch(status){
+        case 'incompleted':
+            contentArr = myToDoList.getIncompleteTasks()
+            break;
+        case 'completed':
+            contentArr = myToDoList.getCompletedTasks()
+            break;
+        default:
+            contentArr = myToDoList.getAllTasks()
+    }
+
+
+    // Remove all child elements
     while (taskList.firstChild) {
         taskList.removeChild(taskList.firstChild);
     }
   
-    
     // Loop through the transformed data and create HTML elements
     contentArr.forEach((item) => {
     // Create a <div> element for each item
     const divElement = document.createElement('div');
-  
-    // Set the text content of the <div> element
-    divElement.textContent = `Id: ${item.id}, Title: ${item.title}`;
-  
+    divElement.classList.add('single-task')
+
+    // Set inner html of the <div> element
+     divElement.innerHTML=
+     `
+     <div><b>Id</b> : ${item.id}</div>
+     <div><b>Title</b> : ${item.title}</div>   
+     <div><b>Due-date</b> : ${item.dueDate}</div>   
+     <div><b>Priority</b> : ${item.priority}</div>   
+     <div><b>Completion</b> : ${item.isCompleted}</div>   
+     <div><b>Desc</b> : ${item.description}</div>      
+     `
     // Append the <div> element to the container
     taskList.appendChild(divElement);
   });
-
-})
+}
 
 myToDoList.autogenerateTicketId()  
+showTask()
