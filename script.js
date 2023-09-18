@@ -103,9 +103,28 @@ class Task {
 
 const refreshBtn= document.querySelector('#refresh');
 refreshBtn.addEventListener('click',()=>{
-    console.log(myToDoList.getAllTasks());
+    
     const taskList=document.querySelector('.task-list');
-    taskList.textContent=myToDoList.getAllTasks()
+    const contentArr =myToDoList.getAllTasks()
+    console.log(contentArr)
+
+        // Remove all child elements
+    while (taskList.firstChild) {
+        taskList.removeChild(taskList.firstChild);
+    }
+  
+    
+    // Loop through the transformed data and create HTML elements
+    contentArr.forEach((item) => {
+    // Create a <div> element for each item
+    const divElement = document.createElement('div');
+  
+    // Set the text content of the <div> element
+    divElement.textContent = `Id: ${item.id}, Title: ${item.title}`;
+  
+    // Append the <div> element to the container
+    taskList.appendChild(divElement);
+  });
 
 })
 
