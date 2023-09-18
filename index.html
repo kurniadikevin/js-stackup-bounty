@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>Task master</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Task master</h1>
+    </div>
+    <div class="task-body">
+        <div class="task-display">
+            <button id="refresh">refresh</button>
+            <div class="task-list"></div>
+        </div>
+        <div class="task-input">
+            <div class="task-input-div">
+                <div >Ticket Id</div>
+                <input type="text" id="ticket-id" name="ticket-id"  readonly>
+                <div >Title: </div>
+                <input type="text" id="title" name="title">
+                <div >Due-date</div>
+                <input type="date" id="due-date" name="date">
+                <div>Priority</div>
+                <select name="priority-select" id="priority-select">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <div >Completion</div>
+                <select name="completion" id="completion-select">
+                    <option value=true>Done</option>
+                    <option value=false>Undone</option>
+                </select>
+                <div>Desc:</div>
+                <textarea type="text" id="description" name="description"></textarea>
+                <div class="submit">
+                    <button id="submit-btn">Add ticket</button>
+                </div>
+              </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>

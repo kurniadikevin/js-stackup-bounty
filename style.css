@@ -1,0 +1,34 @@
+body{
+    background-color: rgb(33, 33, 33);
+    color: white
+}
+
+.header{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.task-body{
+    border: 1px solid white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+}
+
+    .task-display{
+
+    }
+
+    .task-input{
+        padding-left: 30px;
+    }
+        .task-input-form{
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        #description{
+            height: 100px;
+        }
