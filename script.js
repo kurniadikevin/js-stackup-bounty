@@ -1,6 +1,3 @@
-const ticketInput= document.querySelector('#ticket-id');
-const localData= localStorage.getItem('local-data');
-
 // CLASS
 class Task {
     constructor(id, title, description, dueDate, priority, isCompleted ) {
@@ -74,6 +71,7 @@ class Task {
   const dueDate= document.querySelector('#due-date');
   const priority= document.querySelector('#priority-select');
   const completion = document.querySelector('#completion-select');
+  const ticketInput= document.querySelector('#ticket-id');
 
   const submitBtn= document.querySelector('#submit-btn');
 
@@ -145,7 +143,7 @@ const showTask=(status)=>{
     // Set inner html of the <div> element
      divElement.innerHTML=
      `
-     <div><b>Id</b> : ${item.id}</div>
+     <div><b>Ticket Id</b> : ${item.id}</div>
      <div><b>Title</b> : ${item.title}</div>   
      <div><b>Due-date</b> : ${item.dueDate}</div>   
      <div><b>Priority</b> : ${item.priority}</div>   
@@ -161,8 +159,6 @@ const showTask=(status)=>{
 const today = new Date().toISOString().substr(0, 10);
 dueDate.value=today;
 
-
-
-
+// initialized on start
 myToDoList.autogenerateTicketId()  
 showTask()
