@@ -1,6 +1,7 @@
 const ticketInput= document.querySelector('#ticket-id');
 const localData= localStorage.getItem('local-data');
 
+// CLASS
 class Task {
     constructor(id, title, description, dueDate, priority, isCompleted ) {
       this.id = id;                 // Unique identifier for the task
@@ -11,15 +12,9 @@ class Task {
       this.isCompleted = isCompleted; // Task completion status
     }
   
-    markAsCompleted() {
-      this.isCompleted = true;
-    }
-  
-    markAsIncomplete() {
-      this.isCompleted = false;
-    }
   }
   
+  // CLASS
   class ToDoList {
     constructor() {
         const local= JSON.parse(localStorage.getItem('local-data'))
@@ -46,7 +41,6 @@ class Task {
 
     storeToLocal(task){
         const local= myToDoList.getAllTasks()
-        console.log(local)
         if(local!== null){
             local.push(task)
             localStorage.setItem('local-data',JSON.stringify(local))
@@ -84,9 +78,10 @@ class Task {
   const submitBtn= document.querySelector('#submit-btn');
 
   submitBtn.addEventListener('click',()=>{
-
     const newTask= new Task(ticketInput.value, title.value, description.value,
                              dueDate.value, priority.value, completion.value)
+
+    // TRY-CATCH-FINALLY
     try {
         // Code that may throw an exception
         myToDoList.storeToLocal(newTask)
@@ -98,7 +93,6 @@ class Task {
        } finally {
         // Code that is always executed
         alert('Ticket form is cleared')
-      //  myToDoList.clearTicketForm()
         showTask()
        } 
 })
@@ -121,7 +115,7 @@ clearAllBtn.addEventListener('click',()=> {myToDoList.clearAllTasks(); showTask(
 
 
 // show task based on completion status or show all
-// USING SWITCH CASE STATEMENT
+// SWITCH CASE STATEMENT
 const showTask=(status)=>{
     const taskList=document.querySelector('.task-list');
     let contentArr;
