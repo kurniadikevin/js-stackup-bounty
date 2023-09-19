@@ -21,7 +21,6 @@ class Task {
   }
   
   class ToDoList {
-    
     constructor() {
         const local= JSON.parse(localStorage.getItem('local-data'))
         if(local){
@@ -36,8 +35,12 @@ class Task {
     }
 
     clearTicketForm(){
-        [ticketInput.value, title.value, description.value,
-        priority.value, completion.value]=''
+      ticketInput.value = '';
+      title.value = '';
+      description.value = '';
+      priority.value = 'medium';
+      completion.value = 'false';
+      dueDate.value=today
         this.autogenerateTicketId();
     }
 
@@ -51,13 +54,9 @@ class Task {
         localStorage.setItem('local-data',JSON.stringify([task]))
         }
     }
-  
-    removeTask(id) {
-      this.tasks = this.tasks.filter(task => task.id !== id);
-    }
-  
-    getTaskById(id) {
-      return this.tasks.find(task => task.id === id);
+
+    clearAllTasks(){
+     return localStorage.clear()
     }
   
     getAllTasks() {
@@ -116,6 +115,10 @@ incompletedBtn.addEventListener('click',()=>showTask('incompleted'))
 const completedBtn= document.querySelector('#completed');
 completedBtn.addEventListener('click',()=>showTask('completed'))
 
+//clear all task
+const clearAllBtn= document.querySelector('#clear-all');
+clearAllBtn.addEventListener('click',()=> {myToDoList.clearAllTasks(); showTask()})
+
 
 // show task based on completion status or show all
 // USING SWITCH CASE STATEMENT
@@ -159,6 +162,13 @@ const showTask=(status)=>{
     taskList.appendChild(divElement);
   });
 }
+
+//make due date default today
+const today = new Date().toISOString().substr(0, 10);
+dueDate.value=today;
+
+
+
 
 myToDoList.autogenerateTicketId()  
 showTask()

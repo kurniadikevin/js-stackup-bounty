@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <title>Task master</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <title>Task Master</title>
 </head>
 <body>
     <div class="header">
-        <h1>Task master</h1>
+        <h1>Task Master</h1>
     </div>
     <div class="task-body">
         <div class="task-display">
@@ -16,6 +19,7 @@
             <button id="refresh">All</button>
             <button id="incompleted">Incompleted</button>
             <button id="completed">Completed</button>
+            <button id="clear-all">Clear all</button>
             </div>
             <div class="task-list"></div>
         </div>
@@ -30,13 +34,13 @@
                 <div>Priority</div>
                 <select name="priority-select" id="priority-select">
                     <option value="high">High</option>
-                    <option value="medium">Medium</option>
+                    <option value="medium" selected>Medium</option>
                     <option value="low">Low</option>
                 </select>
                 <div >Completion</div>
                 <select name="completion" id="completion-select">
                     <option value='true'>Done</option>
-                    <option value='false'>Undone</option>
+                    <option value='false' selected>Undone</option>
                 </select>
                 <div>Desc:</div>
                 <textarea type="text" id="description" name="description"></textarea>

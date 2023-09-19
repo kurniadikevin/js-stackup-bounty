@@ -1,17 +1,21 @@
 body{
     background-color: rgb(33, 33, 33);
-    color: white
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .header{
    display: flex;
    justify-content: center;
    align-items: center;
-   padding-bottom: 10px;
+   padding-bottom: 20px;
+   color: blanchedalmond;
 }
 
 .task-body{
-    border: 1px solid white;
+    border: 1px solid blanchedalmond;
     border-radius: 10px;
     display: grid;
     grid-template-columns: 3fr 2fr;
@@ -22,13 +26,18 @@ body{
 
     }
     .task-list{
-        overflow-y: scroll;
+        overflow-y:hidden;
         overflow-x: hidden;
         height: 600px;
+        border-top: 1px solid blanchedalmond;
     }
 
     .task-input{
         padding-left: 30px;
+    }
+    .task-input-div>div{
+        color: blanchedalmond;
+        padding-top: 10px;
     }
         .task-input-form{
             width: 60%;
@@ -36,16 +45,32 @@ body{
             flex-direction: column;
             gap: 5px;
         }
+        #title{
+            width: 400px;
+        }
+
         #description{
             height: 100px;
-            width: 300px;
+            width: 400px;
             resize: none;
         }
 
 .single-task{
-    border: 1px solid white;
+    border-bottom: 1px solid blanchedalmond;
+    border-left: 1px solid blanchedalmond;
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+button{
+    background-color: blanchedalmond;
+    border: none;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: darkgrey;
 }
