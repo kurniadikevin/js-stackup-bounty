@@ -49,6 +49,17 @@ class Task {
     clearAllTasks(){
      return localStorage.clear()
     }
+
+    deleteOneTask(index){
+      // get data from local
+      const data= JSON.parse(localStorage.getItem('local-data'))
+      // remove data with splice
+      data.splice(index,1)
+      // change local data with updated data
+      localStorage.setItem('local-data',JSON.stringify(data))
+      showTask()
+      alert('deleted')
+    }
   
     getAllTasks() {
       return JSON.parse(localStorage.getItem('local-data'))
@@ -111,6 +122,16 @@ completedBtn.addEventListener('click',()=>showTask('completed'))
 const clearAllBtn= document.querySelector('#clear-all');
 clearAllBtn.addEventListener('click',()=> {myToDoList.clearAllTasks(); showTask()})
 
+//delete one task assign dom with timeout to wait on render on 1 seconds
+setTimeout(()=>{
+const deleteBtn=document.querySelectorAll('#delete-btn');
+  for(let i=0; i<deleteBtn.length; i++){
+    deleteBtn[i].addEventListener('click',(i)=>{
+      myToDoList.deleteOneTask(i)
+    })
+  }
+},1000)
+
 
 // show task based on completion status or show all
 // SWITCH CASE STATEMENT
@@ -128,14 +149,13 @@ const showTask=(status)=>{
             contentArr = myToDoList.getAllTasks()
     }
 
-
     // Remove all child elements
     while (taskList.firstChild) {
         taskList.removeChild(taskList.firstChild);
     }
   
     // Loop through the transformed data and create HTML elements
-    contentArr.forEach((item) => {
+    contentArr.forEach((item,index) => {
     // Create a <div> element for each item
     const divElement = document.createElement('div');
     divElement.classList.add('single-task')
@@ -143,12 +163,27 @@ const showTask=(status)=>{
     // Set inner html of the <div> element
      divElement.innerHTML=
      `
-     <div><b>Ticket Id</b> : ${item.id}</div>
+     <div class='list-bottom'>   
+      <div><b>Ticket Id</b> : ${item.id}</div>
+     <div id='delete-btn'>
+        <i class="fa fa-trash-o"  style='font-size:20px'></i>
+      </div>
+      <div id='done-btn'>
+      <span class="material-symbols-outlined">
+        done_all
+      </span>
+    </div>
+    </div>
+     </div>  
      <div><b>Title</b> : ${item.title}</div>   
      <div><b>Due-date</b> : ${item.dueDate}</div>   
-     <div><b>Priority</b> : ${item.priority}</div>   
-     <div><b>Completion</b> : ${item.isCompleted}</div>   
-     <div><b>Desc</b> : ${item.description}</div>      
+     <div><b>Priority</b> : ${item.priority}</div>
+     <div class='completion-option'>   
+      <div><b>Completion</b> : ${item.isCompleted}</div>
+     
+     </div>
+     </div>
+     <div><b>Desc</b> : ${item.description}</div>   
      `
     // Append the <div> element to the container
     taskList.appendChild(divElement);

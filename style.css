@@ -61,7 +61,34 @@ body{
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
+}
+
+.action-section{
+    display: flex;
+    gap: 10px;
+}
+
+.list-bottom{
+    display: flex;
+    gap: 10px;
+}
+.completion-option{
+    display: flex;
+    gap: 15px;
+}
+
+span{
+    font-size: 12px;
+    padding-bottom: 4px;
+}
+
+i,span{
+    cursor: pointer;
+    color: brown;
+}
+i:hover,span:hover{
+    font-weight: 600;
 }
 
 button{
