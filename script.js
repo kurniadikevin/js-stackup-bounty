@@ -60,6 +60,17 @@ class Task {
       showTask()
       alert('deleted')
     }
+
+    editCompletionToDone(index){
+       // get data from local
+       const data= JSON.parse(localStorage.getItem('local-data'))
+       // edit completion data
+        data[index].isCompleted='true'
+       // change local data with updated data
+       localStorage.setItem('local-data',JSON.stringify(data))
+       showTask()
+       alert('marked as done')
+    }
   
     getAllTasks() {
       return JSON.parse(localStorage.getItem('local-data'))
@@ -130,7 +141,13 @@ const deleteBtn=document.querySelectorAll('#delete-btn');
       myToDoList.deleteOneTask(i)
     })
   }
-},1000)
+  const doneBtn=document.querySelectorAll('#done-btn');
+  for(let j=0; j<doneBtn.length; j++){
+    doneBtn[j].addEventListener('click',()=>{
+      myToDoList.editCompletionToDone(j)
+    })
+  }
+},500)
 
 
 // show task based on completion status or show all
@@ -168,7 +185,7 @@ const showTask=(status)=>{
      <div id='delete-btn'>
         <i class="fa fa-trash-o"  style='font-size:20px'></i>
       </div>
-      <div id='done-btn'>
+     <div id='done-btn'>
       <span class="material-symbols-outlined">
         done_all
       </span>
