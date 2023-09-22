@@ -58,7 +58,6 @@ class Task {
       data.splice(index,1)
       // change local data with updated data
       localStorage.setItem('local-data',JSON.stringify(data))
-    //  alert('deleted')
       myToDoList.showPopUp('Deleting...')
       setTimeout(()=> { window.location.reload(false);},1000)
     }
@@ -71,7 +70,6 @@ class Task {
         filteredData[index].isCompleted='true'
        // change local data with updated data
        localStorage.setItem('local-data',JSON.stringify(data))
-       //alert('marked as done')
        myToDoList.showPopUp('Marking as done...')
        setTimeout(()=> { window.location.reload(false);},1000)
     }
@@ -92,7 +90,6 @@ class Task {
       const popUp=document.querySelector('#pop-up');
       popUp.textContent=text
       popUp.style.display='flex';
-     // setTimeout(()=> {popUp.style.display='none'},3000)
     }
   }
   
@@ -116,15 +113,13 @@ class Task {
     try {
         //code that may throw an exception
         myToDoList.storeToLocal(newTask)
-        //alert('Ticket sucessfully added')
         myToDoList.showPopUp('Ticket successfully added')
         myToDoList.clearTicketForm()
        } catch (error) {
         //handle the exception
-        alert(error)
+        console(error)
        } finally {
         //always executed
-        //alert('Ticket form is cleared')
         setTimeout(()=>{myToDoList.showPopUp('Ticket form is cleared')},1000)
         setTimeout(()=> { window.location.reload(false);},2000)} 
 })
@@ -162,7 +157,7 @@ const deleteBtn=document.querySelectorAll('#delete-btn');
 },500)
 
 
-// show task based on completion status or show all
+// Show task based on completion status or show all
 // SWITCH CASE STATEMENT
 const showTask=(status)=>{
     const taskList=document.querySelector('.task-list');
