@@ -16,10 +16,10 @@ body{
 
 .task-body{
     border: 1px solid blanchedalmond;
-    border-radius: 10px;
+    border-radius: 15px;
     display: grid;
     grid-template-columns: 3fr 2fr;
-    padding: 10px 15px;
+    padding: 20px 20px;
 
 }
     .task-display{
@@ -102,9 +102,37 @@ button:hover{
     background-color: darkgrey;
 }
 
+#submit-btn{
+    background-color: brown;
+    padding: 4px 8px;
+    color: white;
+}
+#submit-btn:hover{
+    background-color: white;
+    color: brown;
+}
+
 input{
     padding: 3px 5px;
 }
+
+#pop-up{
+    display: none;
+    width: 300px;
+    height: 50px;
+    background-color: white;
+    color:brown;
+    opacity: 0.75;
+    border-radius: 15px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 25px;
+    padding-top: 25px;
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+}
+
 
 /* Custom scrollbar */
 /* width */
