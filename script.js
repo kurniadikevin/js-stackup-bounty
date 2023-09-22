@@ -1,12 +1,12 @@
 // CLASS
 class Task {
     constructor(id, title, description, dueDate, priority, isCompleted ) {
-      this.id = id;                 // Unique identifier for the task
-      this.title = title;           // Title of the task
+      this.id = id;                 // unique identifier for the task
+      this.title = title;           // title of the task
       this.description = description; // Description of the task
-      this.dueDate = dueDate;       // Due date for the task
-      this.priority = priority;     // Priority level (e.g., high, medium, low)
-      this.isCompleted = isCompleted; // Task completion status
+      this.dueDate = dueDate;       // due date for the task
+      this.priority = priority;     // priority level (e.g., high, medium, low)
+      this.isCompleted = isCompleted; // task completion status
     }
   
   }
@@ -47,6 +47,7 @@ class Task {
     }
 
     clearAllTasks(){
+      
      return localStorage.clear()
     }
 
@@ -57,19 +58,22 @@ class Task {
       data.splice(index,1)
       // change local data with updated data
       localStorage.setItem('local-data',JSON.stringify(data))
-      showTask()
       alert('deleted')
+      window.location.reload(false);
     }
 
     editCompletionToDone(index){
        // get data from local
        const data= JSON.parse(localStorage.getItem('local-data'))
        // edit completion data
-        data[index].isCompleted='true'
+       const filteredData=data.filter((item)=> item.isCompleted === 'false')
+       console.log(filteredData)
+        filteredData[index].isCompleted='true'
        // change local data with updated data
        localStorage.setItem('local-data',JSON.stringify(data))
-       showTask()
        alert('marked as done')
+       window.location.reload(false);
+
     }
   
     getAllTasks() {
@@ -103,23 +107,23 @@ class Task {
 
     // TRY-CATCH-FINALLY
     try {
-        // Code that may throw an exception
+        //code that may throw an exception
         myToDoList.storeToLocal(newTask)
         alert('Ticket sucessfully added')
         myToDoList.clearTicketForm()
        } catch (error) {
-        // Code to handle the exception
+        //handle the exception
         alert(error)
        } finally {
-        // Code that is always executed
+        //always executed
         alert('Ticket form is cleared')
-        showTask()
+        window.location.reload(false);
        } 
 })
 
 //refresh display task
-const refreshBtn= document.querySelector('#refresh');
-refreshBtn.addEventListener('click',()=>showTask())
+const allTaskBtn= document.querySelector('#all-task');
+allTaskBtn.addEventListener('click',()=>showTask())
 
 //incompleted display task
 const incompletedBtn= document.querySelector('#incompleted');
@@ -137,7 +141,7 @@ clearAllBtn.addEventListener('click',()=> {myToDoList.clearAllTasks(); showTask(
 setTimeout(()=>{
 const deleteBtn=document.querySelectorAll('#delete-btn');
   for(let i=0; i<deleteBtn.length; i++){
-    deleteBtn[i].addEventListener('click',(i)=>{
+    deleteBtn[i].addEventListener('click',()=>{
       myToDoList.deleteOneTask(i)
     })
   }
@@ -185,11 +189,11 @@ const showTask=(status)=>{
      <div id='delete-btn'>
         <i class="fa fa-trash-o"  style='font-size:20px'></i>
       </div>
-     <div id='done-btn'>
+      ${item.isCompleted === 'false' ? `<div id='done-btn'>
       <span class="material-symbols-outlined">
         done_all
       </span>
-    </div>
+     </div>`: ``}
     </div>
      </div>  
      <div><b>Title</b> : ${item.title}</div>   
@@ -197,7 +201,6 @@ const showTask=(status)=>{
      <div><b>Priority</b> : ${item.priority}</div>
      <div class='completion-option'>   
       <div><b>Completion</b> : ${item.isCompleted}</div>
-     
      </div>
      </div>
      <div><b>Desc</b> : ${item.description}</div>   
